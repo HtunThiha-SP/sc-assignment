@@ -66,12 +66,7 @@
               <div class="invalid-feedback">Passwords do not match.</div>
             </div>
 
-            <div class="mb-3">
-              <label for="type" class="form-label">Account type</label>
-              <select id="type" name="type" class="form-select" required>
-                <option value="user" selected>User</option>
-              </select>
-            </div>
+            <!-- Change: Account Type field has been removed. -->
 
             <div class="mb-3">
               <label for="profilePic" class="form-label">Profile picture URL (optional)</label>
@@ -117,7 +112,7 @@
         const email = form.email.value.trim();
         const password = form.password.value;
         const confirmPassword = document.getElementById('confirmPassword').value;
-        const type = form.type.value;
+        // Change: type has been removed as HTMLElement variable
         const profile_pic_url = form.profile_pic_url.value.trim();
 
         let valid = true;
@@ -129,7 +124,8 @@
           return;
         }
 
-        const payload = { username, email, password, type, profile_pic_url };
+        // Change: type has been removed from payload
+        const payload = { username, email, password, profile_pic_url };
 
         try {
           const res = await fetch('http://localhost:8081/users', {
