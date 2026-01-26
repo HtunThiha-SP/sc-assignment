@@ -250,7 +250,8 @@ app.post('/users', function (req, res) {
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
-    var type = req.body.type;
+    // Change: type is hard-coded as Customer now instead of accessing from request body
+    var type = "Customer";
     var profile_pic_url = req.body.profile_pic_url;
 
 
