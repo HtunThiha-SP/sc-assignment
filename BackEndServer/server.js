@@ -12,6 +12,6 @@ var port = 8081;
 
 app.use(serveStatic(__dirname + '/public')); 
 
-var server = app.listen(port, function(){
-    console.log('Web App Hosted at http://localhost:%s', port);
+var server = app.listen(port, "127.0.0.1" , function(){
+    console.log('Web App Hosted at http://127.0.0.1:%s', port);
 });
