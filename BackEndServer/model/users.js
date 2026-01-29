@@ -151,7 +151,6 @@ var userDB = {
 						if (result.length == 1) {
 
 							token = jwt.sign({ userid: result[0].userid, type: result[0].type }, config.key, {expiresIn: 86400}); //expires in 24 hrs
-							console.log("@@token " + token);
 							return callback(null, token, result);
 						} 
                         
