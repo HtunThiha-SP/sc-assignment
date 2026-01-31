@@ -19,14 +19,13 @@ var port = 8081;
 
 // Create a daily rotating write stream for Morgan
 const accessLogStream = rfs.createStream('access.log', {
-  interval: '1d', // rotate daily
+  interval: '1d',
   path: path.join(__dirname, 'logs')
 });
 
 // 1. Log to the rotating file (Standard Apache Combined format)
 app.use(morgan('combined', { stream: accessLogStream }));
 
-// 2. ALSO pipe to Winston so security events are captured in the app logs
 app.use(morgan('dev', {
   stream: { write: (message) => logger.info(`HTTP Request: ${message.trim()}`) }
 }));

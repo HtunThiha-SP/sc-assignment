@@ -1,7 +1,5 @@
 const logger = require('../utils/logger');
 
-// Simple in-memory store for tracking failed attempts
-// In production, you'd use Redis for this.
 const failureTracker = new Map();
 const THRESHOLD = 5; 
 
@@ -18,7 +16,6 @@ const securityMonitor = {
                 severity: 'CRITICAL',
                 action: 'Consider temporary IP block'
             });
-            // You could call an email/SMS notify function here
         }
         
         // Reset counter after 15 minutes to avoid permanent bans
