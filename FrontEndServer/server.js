@@ -6,7 +6,7 @@ Summary: The server.js is used to start the  frontend server and website.
 const express=require('express');
 const serveStatic=require('serve-static');
 
-var hostname="localhost";
+var hostname="127.0.0.1";
 var port=3001;
 
 var app=express();
