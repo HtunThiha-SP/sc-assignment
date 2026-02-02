@@ -457,8 +457,10 @@ app.delete("/game/:id", function (req, res) {
 //ENDPOINT 10
 //POST /user/:uid/game/:gid/review
 //User add review to game
-app.post("/users/:uid/game/:gid/review", function (req, res) {
-  var userid = req.params.uid;
+// Change: verifyToken middleware is added, :uid parameter is removed
+app.post("/game/:gid/review", verifyToken, function (req, res) {
+  // userid is now retrieved from decoded JWT in verifyToken middleware
+  var userid = req.userid;
   var gameID = req.params.gid;
   var content = req.body.content;
   var rating = req.body.rating;
