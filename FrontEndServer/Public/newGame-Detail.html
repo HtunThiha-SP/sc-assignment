@@ -80,7 +80,8 @@
         if(!user || !token){ showAlert('Please log in to add a review.'); return; }
 
         try{
-          const res = await fetch(`${apiBase}/users/${user.userid}/game/${gameID}/review`, { method:'POST', headers:{ 'Authorization':'Bearer '+token, 'Content-Type':'application/json' }, body: JSON.stringify(body) });
+          // Change: uid param is removed
+          const res = await fetch(`${apiBase}/game/${gameID}/review`, { method:'POST', headers:{ 'Authorization':'Bearer '+token, 'Content-Type':'application/json' }, body: JSON.stringify(body) });
           if(!res.ok){ const t = await res.text(); showAlert('Failed to submit review: '+t); return; }
           showAlert('Review added successfully'); reviewForm.reset(); loadReviews(gameID);
         }catch(e){ console.error(e); showAlert('Network error'); }
