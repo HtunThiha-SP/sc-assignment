@@ -1,4 +1,5 @@
 var jwt = require("jsonwebtoken");
+const logger = require("../utils/logger");
 
 var config = require("../config");
 
@@ -25,8 +26,9 @@ function verifyToken(req, res, next) {
           severity: "medium",
         });
 
-        res.status(403);
-        return res.end({ auth: false, message: "Not authorized!" });
+        return res
+          .status(401)
+          .json({ auth: false, message: "Not authorized!" });
       } else {
         req.userid = decoded.userid; //decode the userid and store in req for use
         req.type = decoded.type; //decode the role and store in req for use
