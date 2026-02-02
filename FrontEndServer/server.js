@@ -29,8 +29,16 @@ app.use(function(req,res,next){
 
 app.use(serveStatic(__dirname+"/public"));
 
+const https = require("https");
+const path = require("path");
+const fs = require("fs");
+var keyPath = path.join(__dirname, "..", "keys", "server.key");
+var certPath = path.join(__dirname, "..", "keys", "server.crt");
 
-app.listen(port,hostname,function(){
+https.createServer({
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath)
+}, app).listen(port,hostname,function(){
 
-    console.log(`Server hosted at http://${hostname}:${port}`);
+    console.log(`Server hosted at https://${hostname}:${port}`);
 });
