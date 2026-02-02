@@ -32,6 +32,15 @@ app.use(morgan('dev', {
 
 app.use(serveStatic(__dirname + "/public"));
 
-var server = app.listen(port, "127.0.0.1", function () {
-  console.log("Web App Hosted at http://127.0.0.1:%s", port);
+const https = require("https");
+const fs = require("fs");
+var keyPath = path.join(__dirname, "..", "keys", "server.key");
+var certPath = path.join(__dirname, "..", "keys", "server.crt");
+
+https.createServer({
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath)
+}, app).listen(port, "127.0.0.1", function(){
+
+    console.log(`Server hosted at https://127.0.0.1:${port}`);
 });
