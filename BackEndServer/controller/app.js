@@ -106,29 +106,29 @@ app.post("/users/login", function (req, res) {
     if (!err) {
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      delete result[0]["password"]; //clear the password in json data, do not send back to client
-      console.log(result);
+      delete result[0]["password"]; 
 
-      // If rememberMe is true, set a cookie with the token for persistent login
       if (rememberMe) {
-        const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
-        res.cookie("rememberMeToken", token, { httpOnly: true, maxAge });
+        const maxAge = 30 * 24 * 60 * 60 * 1000;
+        res.cookie("rememberMeToken", token, {
+          secure: true,
+          maxAge,
+        });
       }
 
-logger.info("SUCCESSFUL_LOGIN", { userId: result[0].userid, ip: req.ip });
-      res.json({
+      logger.info("SUCCESSFUL_LOGIN", { userId: result[0].userid, ip: req.ip });
+      return res.json({
         success: true,
         UserData: JSON.stringify(result),
         token: token,
         status: "You are successfully logged in!",
       });
-
-      res.send();
     } else {
       logger.warn("LOGIN_FAILED", { user: req.body.email, ip: req.ip });
       securityMonitor.trackFailedLogin(req.ip);
-      res.status(500);
-      res.send(err.statusCode);
+
+      res.status(err.statusCode || 500);
+      return res.send({ Message: err.message });
     }
   });
 });
